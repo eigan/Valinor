@@ -33,6 +33,7 @@ use CuyZ\Valinor\Mapper\Tree\Builder\ArrayNodeBuilder;
 use CuyZ\Valinor\Mapper\Tree\Builder\CasterNodeBuilder;
 use CuyZ\Valinor\Mapper\Tree\Builder\CasterProxyNodeBuilder;
 use CuyZ\Valinor\Mapper\Tree\Builder\ClassNodeBuilder;
+use CuyZ\Valinor\Mapper\Tree\Builder\ConstantNodeBuilder;
 use CuyZ\Valinor\Mapper\Tree\Builder\EnumNodeBuilder;
 use CuyZ\Valinor\Mapper\Tree\Builder\ErrorCatcherNodeBuilder;
 use CuyZ\Valinor\Mapper\Tree\Builder\InterfaceNodeBuilder;
@@ -60,6 +61,7 @@ use CuyZ\Valinor\Type\Resolver\Union\UnionNullNarrower;
 use CuyZ\Valinor\Type\Resolver\Union\UnionScalarNarrower;
 use CuyZ\Valinor\Type\ScalarType;
 use CuyZ\Valinor\Type\Types\ArrayType;
+use CuyZ\Valinor\Type\Types\ConstantType;
 use CuyZ\Valinor\Type\Types\EnumType;
 use CuyZ\Valinor\Type\Types\IterableType;
 use CuyZ\Valinor\Type\Types\ListType;
@@ -112,6 +114,7 @@ final class Container
                     IterableType::class => $arrayNodeBuilder,
                     ShapedArrayType::class => new ShapedArrayNodeBuilder(),
                     ScalarType::class => new ScalarNodeBuilder(),
+                    ConstantType::class => new ConstantNodeBuilder()
                 ]);
 
                 $builder = new UnionNodeBuilder($builder, new UnionNullNarrower(new UnionScalarNarrower()));

@@ -12,6 +12,7 @@ use CuyZ\Valinor\Type\Parser\Lexer\Token\ClosingCurlyBracketToken;
 use CuyZ\Valinor\Type\Parser\Lexer\Token\ClosingSquareBracketToken;
 use CuyZ\Valinor\Type\Parser\Lexer\Token\ColonToken;
 use CuyZ\Valinor\Type\Parser\Lexer\Token\CommaToken;
+use CuyZ\Valinor\Type\Parser\Lexer\Token\ConstantToken;
 use CuyZ\Valinor\Type\Parser\Lexer\Token\EnumNameToken;
 use CuyZ\Valinor\Type\Parser\Lexer\Token\IntegerToken;
 use CuyZ\Valinor\Type\Parser\Lexer\Token\IntegerValueToken;
@@ -105,6 +106,10 @@ final class NativeLexer implements TypeLexer
 
         if (class_exists($symbol) || interface_exists($symbol)) {
             return new ClassNameToken($symbol);
+        }
+
+        if (defined($symbol)) {
+            return new ConstantToken($symbol);
         }
 
         return new UnknownSymbolToken($symbol);

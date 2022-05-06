@@ -11,6 +11,7 @@ use CuyZ\Valinor\Type\Types\BooleanType;
 use CuyZ\Valinor\Type\Types\ClassStringType;
 use CuyZ\Valinor\Type\Types\ClassType;
 use CuyZ\Valinor\Type\Types\ArrayType;
+use CuyZ\Valinor\Type\Types\ConstantType;
 use CuyZ\Valinor\Type\Types\EnumType;
 use CuyZ\Valinor\Type\Types\FloatType;
 use CuyZ\Valinor\Type\Types\IntegerRangeType;
@@ -140,6 +141,11 @@ final class TypeCompiler
                 return "new $class({$type->className()}::class)";
             case $type instanceof UnresolvableType:
                 return "new $class('{$type->getMessage()}')";
+
+            case $type instanceof ConstantType:
+                $value = var_export($type->getConstantValue(), true);
+
+                return "new $class({$value})";
             default:
                 throw new TypeCannotBeCompiled($type);
         }

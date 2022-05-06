@@ -95,6 +95,16 @@ final class ReflectionTypeResolver
             $type .= '[]';
         }
 
+        switch ($type) {
+            case 'string':
+                $defaultValue = $reflection->getDefaultValue();
+                if ($defaultValue !== null) {
+                    $type = '"'.$defaultValue.'"';
+                }
+
+                break;
+        }
+
         return $this->parseType($type, $reflection, $this->nativeParser);
     }
 
