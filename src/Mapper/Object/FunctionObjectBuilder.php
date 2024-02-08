@@ -31,6 +31,9 @@ final class FunctionObjectBuilder implements ObjectBuilder
 
     private bool $isDynamicConstructor;
 
+    /**
+     * If the constructor is for a generic type
+     */
     private bool $isGenericConstructor;
 
     public function __construct(FunctionObject $function, ClassType $type)
